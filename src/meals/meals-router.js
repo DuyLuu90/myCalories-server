@@ -32,17 +32,14 @@ mealsRouter.route('/')
   })
   .post(jsonBodyParser, (req, res, next) => {
     const {userid, dateofmeal,breakfast_food,breakfast_calories,lunch_food,lunch_calories,dinner_food,dinner_calories,alldaycalories} = req.body
-
     const newMeal= {userid, dateofmeal,breakfast_food,breakfast_calories,lunch_food,lunch_calories,dinner_food,dinner_calories,alldaycalories}
   /*   
-    for (const [key, value] of Object.entries(newMeal))
-      if (value == null)
+    for (const field of ['userid', 'dateofmeal','alldaycalories'])
+      if (!req.body[field])
         return res.status(400).json({
-          error: `Missing '${key}' in request body`
-      }) 
+          error: `Missing '${field}' in request body`
+        })
   */
-
-    // commented out validation above because breakfast/lunch/dinner are not required, can change this later
 
     const sanitizedMeal= sanitizeItem(newMeal)
     
@@ -53,13 +50,6 @@ mealsRouter.route('/')
         .json(meal)
       })
       .catch(next) 
-
-    // trying to isolate issue, trying with simpler code below
-    /*
-    MealsService.insertMeals( req.app.get('db'),newMeal)
-      .then(meal => res.status(201).json(meal))
-      .catch(next)
-    */
   })
   
 
@@ -82,33 +72,5 @@ mealsRouter.route('/:id')
         .catch(next)
 
   })
-
-
-/*
-async function checkMealExists(req, res, next) {
-  try {
-    const meal = await MealsService.getById(
-    MealsService.insertMeal(
-      req.app.get('db'),
-      req.params.meal_id
-    )
-
-    if (!meal)
-      return res.status(404).json({
-        error: `meal doesn't exist`
-      .then(meal => {
-        res
-          .status(201)
-          .json(MealsService.serializeMeals(meal))
-      })
-
-    res.product = product
-    next()
-  } catch (error) {
-    next(error)
-  }
-}
-*/
-// Duy requested this to be commented out because it's handled in General Service
 
 module.exports = mealsRouter

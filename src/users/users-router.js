@@ -10,7 +10,6 @@ const usersRouter = express.Router()
 //MIDDLEWARE:
 const {checkItemExists}= require('../middleware/general')
 
-
 usersRouter.route('/')
   .get((req,res,next)=>{
     UsersService.getAllUsers(req.app.get('db'))
@@ -19,7 +18,6 @@ usersRouter.route('/')
   })
   .post(jsonBodyParser, (req, res, next) => {
     const {password, user_name, full_name, gender, age,weight,height } = req.body
-
 
     for (const field of ['full_name', 'password','user_name','gender','age','weight','height'])
       if (!req.body[field])
@@ -96,7 +94,4 @@ usersRouter.route('/:id')
     } 
   })
 
-
-  
-    
 module.exports = usersRouter

@@ -30,15 +30,6 @@ const MealsService = {
         .leftJoin('caloriecounter_users AS usr','meals.userid','usr.id')
   },
 
-
-	getAllMeals(db) {
-		return db.select('*').from('meals');
-	},
-
-	getById(db, id) {
-		return MealsService.getAllMeals(db).where('meal.id', id).first();
-	},
-
 	serializeMeals(meal) {		
 		return {
 			id: meal.id,
@@ -47,12 +38,6 @@ const MealsService = {
 		};
 	},
 
-	insertMeals(db, newMeal) {
-    console.log(newMeal)
-		return db
-			.insert(newMeal)
-			.into('meals')
-	}
 };
 
 module.exports = MealsService;

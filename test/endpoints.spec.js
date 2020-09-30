@@ -21,7 +21,7 @@ describe('ALL ENDPOINTS',()=>{
     before('cleanup', () => prepareTest.cleanTables(db))
     afterEach('cleanup', () => prepareTest.cleanTables(db))
     
-    const endPoints= ['meals']
+    const endPoints= ['users']
 
     endPoints.forEach(endpoint=>{
         const validId=2
