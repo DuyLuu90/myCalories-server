@@ -1,9 +1,4 @@
 const {express,path,jsonBodyParser,GeneralService} =require ('../utils/route-helpers')
-/*
-const express = require('express')
-const path = require('path')
-const jsonBodyParser = express.json()
-*/
 const UsersService = require('./users-service')
 const usersRouter = express.Router()
 
