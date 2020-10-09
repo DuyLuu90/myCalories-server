@@ -95,11 +95,6 @@ const prepareTest={
             ))
     },
     seedUsers(db,users){
-        /*
-        const preppedUsers= users.map(user=>({
-            ...user,
-            password: bcrypt.hashSync(user.password,1)
-        }))*/
         return db.into('caloriecounter_users').insert(users)
             .then(()=>db.raw(
                 `SELECT setval('caloriecounter_users_id_seq',?)`,

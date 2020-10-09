@@ -9,8 +9,6 @@ authRouter
     const { user_name, password } = req.body
     const loginUser = { user_name, password }
 
-    //console.log(loginUser);
-
     for (const [key, value] of Object.entries(loginUser))
       if (value === null)
         return res.status(400).json({
@@ -23,14 +21,14 @@ authRouter
     )
       .then(dbUser => {
         if (!dbUser)
-          return res.status(400).json({
+          return res.status(200).json({
             error: 'Incorrect username or password',
           })
 
         return AuthService.comparePasswords(loginUser.password, dbUser.password)
           .then(compareMatch => {
             if (!compareMatch)
-              return res.status(400).json({
+              return res.status(200).json({
                 error: 'Incorrect username or password'
               })
 
@@ -44,14 +42,5 @@ authRouter
       .catch(next)
   });
 
-  /*
-  authRouter.post('/refresh', requireAuth, (req, res) => {
-    const sub = req.user.user_name
-    const payload = { user_id: req.user.id }
-    res.send({
-      authToken: AuthService.createJwt(sub, payload)
-    })
-  });
-  */
-
+  
   module.exports = authRouter

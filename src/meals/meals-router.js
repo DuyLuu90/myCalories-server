@@ -10,7 +10,6 @@ const jsonBodyParser = express.json()
 const {checkItemExists,sanitizeItem}= require('../middleware/general')
 
 mealsRouter.route('/')
-  // .all(requireAuth)
   .get((req, res, next) => {
       const {userId}= req.query
       if (userId) {
@@ -33,14 +32,7 @@ mealsRouter.route('/')
   .post(jsonBodyParser, (req, res, next) => {
     const {userid, dateofmeal,breakfast_food,breakfast_calories,lunch_food,lunch_calories,dinner_food,dinner_calories,alldaycalories} = req.body
     const newMeal= {userid, dateofmeal,breakfast_food,breakfast_calories,lunch_food,lunch_calories,dinner_food,dinner_calories,alldaycalories}
-  /*   
-    for (const field of ['userid', 'dateofmeal','alldaycalories'])
-      if (!req.body[field])
-        return res.status(400).json({
-          error: `Missing '${field}' in request body`
-        })
-  */
-
+    
     const sanitizedMeal= sanitizeItem(newMeal)
     
     GeneralService.insertItem(req.app.get('db'),'meals',sanitizedMeal)
@@ -56,7 +48,6 @@ mealsRouter.route('/')
 mealsRouter.route('/:id')
   .all((req,res,next)=>checkItemExists(req,res,next,'meals'))
   .get((req, res, next) => {
-    // res.json(res.item)
     MealsService.getMealById(req.app.get('db'),req.params.id)
       .then((meal)=>res.status(200).json(meal)).catch(next)
   })

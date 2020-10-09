@@ -3,11 +3,6 @@ const xss = require('xss');
 const userFields = [
   'usr.id AS user:id',
   'usr.full_name AS user:full_name',
-  /*
-  'usr.age AS user:age',
-  'usr.gender AS user:gender',
-  'usr.height AS user:height',
-  'usr.weight AS user:weight',*/
 ]
 const mealFields=[
   'meals.id','meals.alldaycalories','meals.dateofmeal',
